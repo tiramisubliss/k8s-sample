@@ -1,3 +1,4 @@
+```
 username=$(echo -n "admin" | base64)
 password=$(echo -n "a62fjbd37942dcs" | base64)
 
@@ -18,3 +19,4 @@ kubectl exec -it secret-vol-pod ls /etc/secret-volume
 kubectl exec -it secret-vol-pod cat /etc/secret-volume/username
 
 kubectl exec -it secret-vol-pod cat /etc/secret-volume/password
+```
