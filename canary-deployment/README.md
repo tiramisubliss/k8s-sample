@@ -1,14 +1,14 @@
 # Canary Deployment Under Kubernetes
 
-Create the first deployment, `deployment-red` into the Kubernetes cluster.
+### Create the first deployment, deployment-red into the Kubernetes cluster.
 
 `kubectl apply -f deployment-red.yaml`
 
-### Create the second deployment, `deployment-green` into the Kubernetes cluster.
+### Create the second deployment, deployment-green into the Kubernetes cluster.
 
 `kubectl apply -f deployment-green.yaml`
 
-### Let's retrieve a list of pods according to the label, `type=example_code`.
+### Let's retrieve a list of pods according to the label, type=example_code
 
 `kubectl get pods -l app=example_code`
 
@@ -17,7 +17,7 @@ Create the first deployment, `deployment-red` into the Kubernetes cluster.
 `kubectl get pods -l app=example_code  -l color=green`
 
 ### Now it's time to bind the pods to some services. First, let's take a look at the contents of the first service as defined
-in the yaml file, `service_01.yaml`.
+in the yaml file, service_01.yaml
 
 `kubectl apply -f service_01.yaml`
 
