@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vuevue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vuevue
+  template:
+    metadata:
+      labels:
+        app: vuevue
+    spec:
+      containers:
+      - image: tiramisubliss/vuevue:1.0
+        name: vuevue
+        ports:
+        - containerPort: 80
