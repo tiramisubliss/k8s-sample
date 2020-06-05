@@ -13,7 +13,7 @@ spec:
         app: vuevue
     spec:
       containers:
-      - image: tiramisubliss/vuevue:1.0
+      - image: tiramisubliss/vuevue:2.0
         name: vuevue
         ports:
         - containerPort: 80
