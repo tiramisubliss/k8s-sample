@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telegraf-config
+  namespace: YOURNAMESPACE
+data:
+  telegraf.conf: |+
+    [agent]
+      interval = "10s"
+      round_interval = true
+      metric_batch_size = 1000
+      metric_buffer_limit = 10000
+      collection_jitter = "0s"
+      flush_interval = "10s"
+      flush_jitter = "0s"
+      debug = false
+      quiet = false
+      hostname = ""
+      omit_hostname = false
+
+    [[outputs.influxdb]]
+      urls = ["$INFLUXDB_URL"]
+      database = "$INFLUXDB_DB"
+      username = "$INFLUXDB_USER"
+      password = "$INFLUXDB_PASSWORD"
+
+    [[inputs.mem]]
+    [[inputs.system]]
+    [[inputs.cpu]]
+        fielddrop = [ "time_*" ]
+        totalcpu = true
+        percpu = true
+    [[inputs.disk]]
+        mountpoints = [ "/" ]
+    [[inputs.diskio]]
+        skip_serial_number = true
+    [[inputs.net]]
+        interfaces = [ "ens4" ]
+    [[inputs.statsd]]
+        templates = [ "measurement.measurement.field*" ]
+        service_address = "0.0.0.0:8125"
+        protocol = "udp"
+        delete_gauges = true
+        delete_counters = true
+        delete_sets = true
+        delete_timings = true
+        percentiles = [ 90, 95, 99 ]
+        metric_separator = "_"
+        parse_data_dog_tags = false
+        allowed_pending_messages = 100000
+        percentile_limit = 1000

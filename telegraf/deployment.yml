@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegraf
+  namespace: YOURNAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: telegraf
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: telegraf
+    spec:
+      containers:
+        - image: telegraf:1.14.3
+          name: telegraf
+          envFrom:
+            - secretRef:
+                name: telegraf-secret
+          volumeMounts:
+            - name: telegraf-config-volume
+              mountPath: /etc/telegraf/telegraf.conf
+              subPath: telegraf.conf
+              readOnly: true
+      volumes:
+        - name: telegraf-config-volume
+          configMap:
+            name: telegraf-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: telegraf
+  namespace: default
+spec:
+  clusterIP: 10.109.5.19
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 32559
+    port: 8125
+    protocol: UDP
+    targetPort: 8125
+  selector:
+    app: telegraf
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
