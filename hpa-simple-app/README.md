@@ -22,7 +22,7 @@ kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin
 # How to clean up
 
 ```sh
-kubectl delete service php-apache
-kubectl delete deployment php-apache
-kubectl delete horizontalpodautoscaler php-apache
+kubectl delete service hpa-simple-app
+kubectl delete deployment hpa-simple-app
+kubectl delete horizontalpodautoscaler hpa-simple-app
 ```
