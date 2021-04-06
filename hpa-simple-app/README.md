@@ -14,6 +14,9 @@ kubectl apply -f deployment.yaml -f hpa.yaml
 ```
 
 # How to test HPA
+```sh
+kubectl autoscale deployment hpa-simple-app --cpu-percent=30 --min=1 --max=10
+```
 
 ```sh
 kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.0000001; do wget -q -O- http://hpa-simple-app; done"
